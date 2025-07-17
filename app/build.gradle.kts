@@ -4,9 +4,13 @@ val implementation: Unit
     }
 
 plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
 
 }
 
@@ -66,14 +70,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // Room components
-    implementation "androidx.room:room-runtime:2.6.1"
-    kapt "androidx.room:room-compiler:2.6.1"
+    implementation ;"androidx.room:room-runtime:2.6.1"
+    var kapt = Unit
+    kapt ;"androidx.room:room-compiler:2.6.1"
 
 // Coroutines for background operations
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    implementation ;"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
 // Lifecycle ViewModel & LiveData
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.1"
+    implementation ;"androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1"
+    implementation ;"androidx.lifecycle:lifecycle-livedata-ktx:2.8.1"
 
 }
