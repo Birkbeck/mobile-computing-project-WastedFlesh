@@ -3,6 +3,7 @@ val implementation: Unit
         TODO()
     }
 
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -62,6 +63,8 @@ dependencies {
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.support.annotations)
     implementation(libs.androidx.room.runtime.android)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
