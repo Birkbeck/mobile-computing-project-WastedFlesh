@@ -2,6 +2,7 @@ package com.example.culinarycompanioncw
 
 import android.R
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,14 @@ class AddEditRecipeActivity<RecipeViewModel> : AppCompatActivity() {
                 )
 
                 if (isEditMode) {
+                    val deleteButton = findViewById<Button>(R.id.deleteButton)
+
+                    if (isEditMode) {
+                        deleteButton.visibility = View.VISIBLE
+                    } else {
+                        deleteButton.visibility = View.GONE
+                    }
+
                     viewModel.update(updatedRecipe)
                 } else {
                     viewModel.insert(updatedRecipe)
@@ -72,6 +81,25 @@ class AddEditRecipeActivity<RecipeViewModel> : AppCompatActivity() {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
+        deleteButton.setOnClickListener {
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Delete Recipe")
+            builder.setMessage("Are you sure you want to delete this recipe?")
+            builder.setPositiveButton("Yes") { _, _ ->
+                val recipeToDelete = Recipe(
+                    id = recipeId,
+                    title = "", // The rest can be empty — only ID is needed
+                    ingredients = "",
+                    instructions = "",
+                    category = ""
+                )
+                viewModel.delete(recipeToDelete)
+                finish()
+            }
+            builder.setNegativeButton("No", null)
+            builder.show()
+        }
+
 
     }
 }
