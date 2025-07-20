@@ -25,8 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize adapter with click handler
         recipeAdapter = RecipeAdapter { recipe ->
-            // TODO: Handle click (edit/delete later)
+            val intent = Intent(this, AddEditRecipeActivity::class.java).apply {
+                putExtra("RECIPE_ID", recipe.id)
+                putExtra("RECIPE_TITLE", recipe.title)
+                putExtra("RECIPE_INGREDIENTS", recipe.ingredients)
+                putExtra("RECIPE_INSTRUCTIONS", recipe.instructions)
+                putExtra("RECIPE_CATEGORY", recipe.category)
+            }
+            startActivity(intent)
         }
+
 
         // Set up RecyclerView
         binding.recipeRecyclerView.apply {
