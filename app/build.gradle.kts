@@ -1,9 +1,3 @@
-val implementation: Unit
-    get() {
-        TODO()
-    }
-
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
