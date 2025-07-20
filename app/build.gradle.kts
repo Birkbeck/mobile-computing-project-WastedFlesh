@@ -8,6 +8,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("kotlin.kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -47,11 +48,13 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
 dependencies {
 
+    implementation(libs.kotlin.ksp)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -74,15 +77,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // Room components
-    implementation ;"androidx.room:room-runtime:2.6.1"
-    var kapt = Unit
-    kapt ;"androidx.room:room-compiler:2.6.1"
+    implementation(libs.androidx.room.runtime)
+    val ksp = Unit
+    ksp(libs.androidx.room.compiler)
 
 // Coroutines for background operations
-    implementation ;"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    implementation(libs.kotlinx.coroutines.android)
 
 // Lifecycle ViewModel & LiveData
-    implementation ;"androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1"
-    implementation ;"androidx.lifecycle:lifecycle-livedata-ktx:2.8.1"
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
 }

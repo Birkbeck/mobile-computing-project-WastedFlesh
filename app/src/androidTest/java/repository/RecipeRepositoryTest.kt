@@ -1,5 +1,6 @@
 package repository
 
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import com.example.culinarycompanioncw.data.Recipe
 import com.example.culinarycompanioncw.data.RecipeDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,6 +11,9 @@ import org.mockito.kotlin.*
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import com.google.common.truth.Truth.assertThat
+import data.Recipe
+import data.RecipeDao
+import kotlinx.coroutines.launch
 
 @RunWith(MockitoJUnitRunner::class)
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -73,6 +77,6 @@ class RecipeRepositoryTest {
         advanceUntilIdle()
         job.cancel()
 
-        assertThat(emitted.first()).containsExactlyElementsIn(recipes)
+        assertThat(emitted.first().toString()).containsExactlyElementsIn(recipes)
     }
 }
