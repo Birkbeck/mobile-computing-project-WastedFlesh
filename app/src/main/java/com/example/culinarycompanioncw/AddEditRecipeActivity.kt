@@ -22,6 +22,21 @@ class AddEditRecipeActivity<RecipeViewModel> : AppCompatActivity() {
         val instructionsEditText = findViewById<EditText>(R.id.instructionsEditText)
         val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
         val saveButton = findViewById<Button>(R.id.saveButton)
+        if (isEditMode) {
+            titleEditText.setText(intent.getStringExtra("RECIPE_TITLE"))
+            ingredientsEditText.setText(intent.getStringExtra("RECIPE_INGREDIENTS"))
+            instructionsEditText.setText(intent.getStringExtra("RECIPE_INSTRUCTIONS"))
+
+            val categories = resources.getStringArray(R.array.recipe_categories)
+            val passedCategory = intent.getStringExtra("RECIPE_CATEGORY")
+            val selectedIndex = categories.indexOf(passedCategory)
+            if (selectedIndex >= 0) {
+                categorySpinner.setSelection(selectedIndex)
+            }
+
+            saveButton.setText("Update Recipe")
+        }
+
 
         // Set up category spinner
         val categories = listOf("Breakfast", "Brunch", "Lunch", "Dinner", "Desserts", "Other")
@@ -38,17 +53,25 @@ class AddEditRecipeActivity<RecipeViewModel> : AppCompatActivity() {
             val category = categorySpinner.selectedItem.toString()
 
             if (title.isNotBlank() && ingredients.isNotBlank() && instructions.isNotBlank()) {
-                val newRecipe = Recipe(
+                val updatedRecipe = Recipe(
+                    id = if (isEditMode) recipeId else 0,
                     title = title,
                     ingredients = ingredients,
                     instructions = instructions,
                     category = category
                 )
-                viewModel.insert(newRecipe)
-                finish() // Go back to main screen
+
+                if (isEditMode) {
+                    viewModel.update(updatedRecipe)
+                } else {
+                    viewModel.insert(updatedRecipe)
+                }
+
+                finish()
             } else {
-                Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 }
